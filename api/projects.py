@@ -7,53 +7,7 @@ import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'backend'))
 
 # Import project configurations
-PROJECTS_CONFIG = {
-    "calculator": {
-        "name": "Calculator",
-        "description": "A simple calculator application",
-        "category": "Utility",
-        "parameters": [
-            {"name": "expression", "type": "string", "description": "Mathematical expression to evaluate"}
-        ],
-        "module": "calculator",
-        "function": "calculate"
-    },
-    "password_generator": {
-        "name": "Password Generator",
-        "description": "Generate secure random passwords",
-        "category": "Security",
-        "parameters": [
-            {"name": "length", "type": "number", "description": "Password length", "default": 12},
-            {"name": "include_symbols", "type": "boolean", "description": "Include symbols", "default": True}
-        ],
-        "module": "password_generator",
-        "function": "generate_password"
-    },
-    "qr_generator": {
-        "name": "QR Code Generator",
-        "description": "Generate QR codes from text",
-        "category": "Utility",
-        "parameters": [
-            {"name": "text", "type": "string", "description": "Text to encode in QR code"}
-        ],
-        "module": "qr_generator",
-        "function": "generate_qr"
-    },
-    "web_link_extractor": {
-        "name": "Web Link Extractor",
-        "description": "Extract all links from any webpage with filtering options",
-        "category": "Web",
-        "parameters": [
-            {"name": "url", "type": "string", "description": "URL of the webpage to extract links from"},
-            {"name": "max_links", "type": "number", "description": "Maximum number of links to return", "default": 50},
-            {"name": "filter_internal", "type": "boolean", "description": "Only show internal links (same domain)", "default": False},
-            {"name": "filter_external", "type": "boolean", "description": "Only show external links (different domain)", "default": False},
-            {"name": "include_emails", "type": "boolean", "description": "Include email links (mailto:)", "default": True}
-        ],
-        "module": "web_link_extractor",
-        "function": "extract_links"
-    }
-}
+from projects import get_projects, get_categories
 
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -64,9 +18,22 @@ class handler(BaseHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Headers', 'Content-Type')
         self.end_headers()
         
+        projects = get_projects()
+        categories = get_categories()
+        
+        # Group projects by category
+        projects_by_category = {}
+        for project_id, project in projects.items():
+            category = project['category']
+            if category not in projects_by_category:
+                projects_by_category[category] = {}
+            projects_by_category[category][project_id] = project
+        
         response = {
-            "projects": PROJECTS_CONFIG,
-            "total": len(PROJECTS_CONFIG)
+            "categories": categories,
+            "projects": projects_by_category,
+            "total_projects": len(projects),
+            "total_categories": len(categories)
         }
         
         self.wfile.write(json.dumps(response).encode())

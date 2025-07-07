@@ -2,17 +2,24 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import Home from './pages/Home';
+import CalculatorPage from './pages/CalculatorPage';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
 function App() {
   return (
-    <Router>
+    <Router
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true
+      }}
+    >
       <div className="App min-h-screen flex flex-col">
         <Header />
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/calculators" element={<CalculatorPage />} />
           </Routes>
         </main>
         <Footer />

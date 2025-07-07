@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Filter, RefreshCw, Zap, Code, Users, Star } from 'lucide-react';
+import { Search, Filter, RefreshCw, Zap, Code, Users, Star, Calculator, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import ProjectCard from '../components/ProjectCard';
 import ProjectRunner from '../components/ProjectRunner';
 import toast from 'react-hot-toast';
@@ -143,6 +144,37 @@ const Home = () => {
               </button>
             </div>
           </div>
+        </div>
+
+        {/* Calculator Hub Feature */}
+        <div className="mb-8">
+          <Link to="/calculators" className="block">
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-6 text-white hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <div className="bg-white bg-opacity-20 rounded-lg p-3 mr-4">
+                    <Calculator className="h-8 w-8" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold mb-1">Calculator Hub</h3>
+                    <p className="text-blue-100">
+                      Access 40+ specialized calculators for finance, fitness, math, and more
+                    </p>
+                    <div className="flex items-center mt-2 text-sm text-blue-200">
+                      <span className="bg-yellow-400 text-yellow-900 px-2 py-1 rounded-full text-xs font-medium mr-2">
+                        Featured
+                      </span>
+                      <span>Mortgage • BMI • Percentage • Age calculators and more</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="hidden md:flex items-center text-blue-200">
+                  <span className="text-lg font-medium mr-2">Explore Calculators</span>
+                  <ArrowRight className="h-6 w-6" />
+                </div>
+              </div>
+            </div>
+          </Link>
         </div>
 
         {/* Projects Grid */}
