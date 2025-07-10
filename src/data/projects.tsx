@@ -31,7 +31,12 @@ import {
   Eye,
   Download,
   Upload,
-  Zap
+  Zap,
+  Battery,
+  Video,
+  Terminal,
+  MonitorSmartphone,
+  Cog
 } from 'lucide-react';
 
 export interface Project {
@@ -44,6 +49,7 @@ export interface Project {
   difficulty: 'Easy' | 'Medium' | 'Hard';
   downloads: number;
   rating: number;
+  filename: string;
 }
 
 export const projects: Project[] = [
@@ -57,7 +63,8 @@ export const projects: Project[] = [
     tags: ['pdf', 'conversion', 'documents'],
     difficulty: 'Easy',
     downloads: 15420,
-    rating: 4.8
+    rating: 4.8,
+    filename: 'pdf_converter.py'
   },
   {
     id: 'image-converter',
@@ -68,7 +75,8 @@ export const projects: Project[] = [
     tags: ['images', 'conversion', 'formats'],
     difficulty: 'Easy',
     downloads: 12380,
-    rating: 4.7
+    rating: 4.7,
+    filename: 'image_converter.py'
   },
   {
     id: 'file-compressor',
@@ -79,7 +87,8 @@ export const projects: Project[] = [
     tags: ['compression', 'zip', 'archive'],
     difficulty: 'Medium',
     downloads: 8950,
-    rating: 4.6
+    rating: 4.6,
+    filename: 'file_compressor.py'
   },
   {
     id: 'csv-json-converter',
@@ -90,7 +99,8 @@ export const projects: Project[] = [
     tags: ['csv', 'json', 'data'],
     difficulty: 'Easy',
     downloads: 7620,
-    rating: 4.5
+    rating: 4.5,
+    filename: 'csv_to_json_converter.py'
   },
   {
     id: 'file-organizer',
@@ -101,7 +111,8 @@ export const projects: Project[] = [
     tags: ['organization', 'automation', 'files'],
     difficulty: 'Medium',
     downloads: 6340,
-    rating: 4.4
+    rating: 4.4,
+    filename: 'file_organizer.py'
   },
   {
     id: 'duplicate-finder',
@@ -112,7 +123,8 @@ export const projects: Project[] = [
     tags: ['duplicates', 'cleanup', 'optimization'],
     difficulty: 'Medium',
     downloads: 5890,
-    rating: 4.3
+    rating: 4.3,
+    filename: 'duplicate_finder.py'
   },
 
   // Web Tools
@@ -125,7 +137,8 @@ export const projects: Project[] = [
     tags: ['monitoring', 'uptime', 'performance'],
     difficulty: 'Easy',
     downloads: 9840,
-    rating: 4.7
+    rating: 4.7,
+    filename: 'website_checker.py'
   },
   {
     id: 'link-extractor',
@@ -136,7 +149,8 @@ export const projects: Project[] = [
     tags: ['scraping', 'links', 'extraction'],
     difficulty: 'Medium',
     downloads: 4560,
-    rating: 4.2
+    rating: 4.2,
+    filename: 'link_extractor.py'
   },
   {
     id: 'dns-lookup',
@@ -147,7 +161,8 @@ export const projects: Project[] = [
     tags: ['dns', 'networking', 'lookup'],
     difficulty: 'Medium',
     downloads: 3780,
-    rating: 4.5
+    rating: 4.5,
+    filename: 'dns_lookup.py'
   },
   {
     id: 'url-shortener',
@@ -158,7 +173,8 @@ export const projects: Project[] = [
     tags: ['urls', 'shortening', 'analytics'],
     difficulty: 'Hard',
     downloads: 8920,
-    rating: 4.6
+    rating: 4.6,
+    filename: 'url_shortener.py'
   },
 
   // Security Tools
@@ -171,7 +187,8 @@ export const projects: Project[] = [
     tags: ['passwords', 'security', 'encryption'],
     difficulty: 'Easy',
     downloads: 18340,
-    rating: 4.9
+    rating: 4.9,
+    filename: 'password_generator.py'
   },
   {
     id: 'file-encryptor',
@@ -182,7 +199,8 @@ export const projects: Project[] = [
     tags: ['encryption', 'security', 'files'],
     difficulty: 'Hard',
     downloads: 6780,
-    rating: 4.8
+    rating: 4.8,
+    filename: 'file_encryptor.py'
   },
   {
     id: 'hash-generator',
@@ -193,7 +211,8 @@ export const projects: Project[] = [
     tags: ['hashing', 'checksum', 'verification'],
     difficulty: 'Easy',
     downloads: 5640,
-    rating: 4.4
+    rating: 4.4,
+    filename: 'hash_generator.py'
   },
   {
     id: 'wifi-analyzer',
@@ -204,7 +223,8 @@ export const projects: Project[] = [
     tags: ['wifi', 'networking', 'security'],
     difficulty: 'Medium',
     downloads: 4920,
-    rating: 4.3
+    rating: 4.3,
+    filename: 'wifi_analyzer.py'
   },
 
   // Utility Tools
@@ -217,7 +237,8 @@ export const projects: Project[] = [
     tags: ['math', 'calculations', 'science'],
     difficulty: 'Easy',
     downloads: 11230,
-    rating: 4.6
+    rating: 4.6,
+    filename: 'scientific_calculator.py'
   },
   {
     id: 'currency-converter',
@@ -228,7 +249,8 @@ export const projects: Project[] = [
     tags: ['currency', 'finance', 'conversion'],
     difficulty: 'Medium',
     downloads: 8760,
-    rating: 4.7
+    rating: 4.7,
+    filename: 'currency_converter.py'
   },
   {
     id: 'time-tracker',
@@ -239,7 +261,8 @@ export const projects: Project[] = [
     tags: ['productivity', 'tracking', 'time'],
     difficulty: 'Medium',
     downloads: 7890,
-    rating: 4.5
+    rating: 4.5,
+    filename: 'time_tracker.py'
   },
   {
     id: 'task-scheduler',
@@ -250,7 +273,8 @@ export const projects: Project[] = [
     tags: ['scheduling', 'automation', 'tasks'],
     difficulty: 'Hard',
     downloads: 4560,
-    rating: 4.4
+    rating: 4.4,
+    filename: 'task_scheduler.py'
   },
   {
     id: 'email-validator',
@@ -261,7 +285,8 @@ export const projects: Project[] = [
     tags: ['email', 'validation', 'verification'],
     difficulty: 'Medium',
     downloads: 6730,
-    rating: 4.3
+    rating: 4.3,
+    filename: 'email_validator.py'
   },
   {
     id: 'system-monitor',
@@ -272,7 +297,8 @@ export const projects: Project[] = [
     tags: ['monitoring', 'system', 'performance'],
     difficulty: 'Medium',
     downloads: 5420,
-    rating: 4.6
+    rating: 4.6,
+    filename: 'system_monitor.py'
   },
 
   // Multimedia Tools
@@ -285,7 +311,8 @@ export const projects: Project[] = [
     tags: ['watermark', 'images', 'branding'],
     difficulty: 'Medium',
     downloads: 9340,
-    rating: 4.5
+    rating: 4.5,
+    filename: 'image_watermark.py'
   },
   {
     id: 'qr-generator',
@@ -296,7 +323,8 @@ export const projects: Project[] = [
     tags: ['qr-code', 'generation', 'encoding'],
     difficulty: 'Easy',
     downloads: 12890,
-    rating: 4.8
+    rating: 4.8,
+    filename: 'qr_generator.py'
   },
   {
     id: 'video-frames',
@@ -307,7 +335,8 @@ export const projects: Project[] = [
     tags: ['video', 'frames', 'extraction'],
     difficulty: 'Medium',
     downloads: 4670,
-    rating: 4.4
+    rating: 4.4,
+    filename: 'video_frame_extractor.py'
   },
   {
     id: 'color-palette',
@@ -318,7 +347,8 @@ export const projects: Project[] = [
     tags: ['colors', 'design', 'palette'],
     difficulty: 'Easy',
     downloads: 7820,
-    rating: 4.6
+    rating: 4.6,
+    filename: 'color_palette_generator.py'
   },
   {
     id: 'image-resizer',
@@ -329,7 +359,8 @@ export const projects: Project[] = [
     tags: ['resize', 'batch', 'images'],
     difficulty: 'Easy',
     downloads: 10450,
-    rating: 4.7
+    rating: 4.7,
+    filename: 'image_resizer.py'
   },
   {
     id: 'metadata-editor',
@@ -340,7 +371,154 @@ export const projects: Project[] = [
     tags: ['metadata', 'exif', 'privacy'],
     difficulty: 'Medium',
     downloads: 3890,
-    rating: 4.2
+    rating: 4.2,
+    filename: 'image_metadata_editor.py'
+  },
+
+  // Python Projects
+  {
+    id: 'jpg-to-png',
+    name: 'JPG to PNG Converter',
+    description: 'Convert JPG images to PNG format quickly and easily.',
+    category: 'file-operations',
+    icon: <FileImage size={20} className="text-blue-600" />,
+    tags: ['conversion', 'images', 'jpg', 'png'],
+    difficulty: 'Easy',
+    downloads: 0,
+    rating: 0,
+    filename: 'JPGtoPNG.py'
+  },
+  {
+    id: 'png-to-jpg',
+    name: 'PNG to JPG Converter',
+    description: 'Convert PNG images to JPG format with quality preservation.',
+    category: 'file-operations',
+    icon: <FileImage size={20} className="text-green-600" />,
+    tags: ['conversion', 'images', 'png', 'jpg'],
+    difficulty: 'Easy',
+    downloads: 0,
+    rating: 0,
+    filename: 'PNGtoJPG.py'
+  },
+  {
+    id: 'converter-gui',
+    name: 'File Converter (GUI)',
+    description: 'Convert files between different formats with a user-friendly graphical interface.',
+    category: 'file-operations',
+    icon: <MonitorSmartphone size={20} className="text-purple-600" />,
+    tags: ['conversion', 'gui', 'files'],
+    difficulty: 'Medium',
+    downloads: 0,
+    rating: 0,
+    filename: 'converter_GUI.py'
+  },
+  {
+    id: 'converter-terminal',
+    name: 'File Converter (Terminal)',
+    description: 'Command-line tool for quick file format conversions.',
+    category: 'file-operations',
+    icon: <Terminal size={20} className="text-gray-600" />,
+    tags: ['conversion', 'terminal', 'cli'],
+    difficulty: 'Easy',
+    downloads: 0,
+    rating: 0,
+    filename: 'converter_terminal.py'
+  },
+  {
+    id: 'calculator',
+    name: 'Advanced Calculator',
+    description: 'Perform complex calculations with an intuitive interface.',
+    category: 'utilities',
+    icon: <Calculator size={20} className="text-blue-600" />,
+    tags: ['math', 'calculations'],
+    difficulty: 'Medium',
+    downloads: 0,
+    rating: 0,
+    filename: 'calculator.py'
+  },
+  {
+    id: 'stopwatch',
+    name: 'Stopwatch',
+    description: 'Precise timing tool with lap recording capabilities.',
+    category: 'utilities',
+    icon: <Clock size={20} className="text-red-600" />,
+    tags: ['time', 'tracking'],
+    difficulty: 'Easy',
+    downloads: 0,
+    rating: 0,
+    filename: 'stopwatch.py'
+  },
+  {
+    id: 'todo',
+    name: 'Todo List Manager',
+    description: 'Organize your tasks and manage your to-do list efficiently.',
+    category: 'utilities',
+    icon: <FileText size={20} className="text-green-600" />,
+    tags: ['productivity', 'organization'],
+    difficulty: 'Medium',
+    downloads: 0,
+    rating: 0,
+    filename: 'todo.py'
+  },
+  {
+    id: 'battery',
+    name: 'Battery Monitor',
+    description: 'Track your device\'s battery status and get notifications.',
+    category: 'utilities',
+    icon: <Battery size={20} className="text-yellow-600" />,
+    tags: ['system', 'monitoring'],
+    difficulty: 'Easy',
+    downloads: 0,
+    rating: 0,
+    filename: 'battery.py'
+  },
+  {
+    id: 'age-calculator',
+    name: 'Age Calculator',
+    description: 'Calculate age precisely from birth date to current date.',
+    category: 'utilities',
+    icon: <Calendar size={20} className="text-purple-600" />,
+    tags: ['date', 'calculation'],
+    difficulty: 'Easy',
+    downloads: 0,
+    rating: 0,
+    filename: 'birthDateToCurrentAge.py'
+  },
+  {
+    id: 'video-capture',
+    name: 'Video Frame Capture',
+    description: 'Capture and save frames from video sources.',
+    category: 'multimedia',
+    icon: <Video size={20} className="text-red-600" />,
+    tags: ['video', 'frames', 'capture'],
+    difficulty: 'Medium',
+    downloads: 0,
+    rating: 0,
+    filename: 'capture_video_frames.py'
+  },
+  {
+    id: 'art-generator',
+    name: 'Art Generator',
+    description: 'Create unique artistic patterns and designs.',
+    category: 'multimedia',
+    icon: <Palette size={20} className="text-purple-600" />,
+    tags: ['art', 'graphics', 'creative'],
+    difficulty: 'Medium',
+    downloads: 0,
+    rating: 0,
+    filename: 'make_art.py'
+  },
+  {
+    id: 'encryptor',
+    name: 'File Encryptor',
+    description: 'Encrypt and decrypt files securely.',
+    category: 'security',
+    icon: <Lock size={20} className="text-orange-600" />,
+    tags: ['security', 'encryption', 'privacy'],
+    difficulty: 'Medium',
+    downloads: 0,
+    rating: 0,
+    filename: 'encrypt.py'
   }
 ];
 

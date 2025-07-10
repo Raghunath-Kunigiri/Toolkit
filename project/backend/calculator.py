@@ -129,5 +129,44 @@ def cal():
     root.mainloop()
 
 
-if __name__ == '__main__':
-    cal()
+def evaluate_expression(expression: str) -> float:
+    """Safely evaluate a mathematical expression."""
+    try:
+        # Using eval() for simplicity. In production, use a safer alternative
+        return float(eval(expression, {"__builtins__": {}}, {}))
+    except Exception as e:
+        raise ValueError(f"Invalid expression: {str(e)}")
+
+def main(expression: str = "2 + 2") -> dict:
+    """
+    Main function to be called by the FastAPI backend.
+    Args:
+        expression: Mathematical expression to evaluate
+    Returns:
+        dict: Result of the calculation
+    """
+    try:
+        result = evaluate_expression(expression)
+        return {
+            "expression": expression,
+            "result": result,
+            "error": None
+        }
+    except Exception as e:
+        return {
+            "expression": expression,
+            "result": None,
+            "error": str(e)
+        }
+
+if __name__ == "__main__":
+    # Test the calculator
+    test_expressions = [
+        "2 + 2",
+        "10 * 5",
+        "20 / 4",
+        "(5 + 3) * 2"
+    ]
+    
+    for expr in test_expressions:
+        print(f"{expr} = {main(expr)['result']}")

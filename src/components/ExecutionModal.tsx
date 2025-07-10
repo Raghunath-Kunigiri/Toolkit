@@ -7,51 +7,71 @@ interface ExecutionModalProps {
   project: any;
 }
 
+const BACKEND_URL = 'http://localhost:8000';
+
 const ExecutionModal: React.FC<ExecutionModalProps> = ({ isOpen, onClose, project }) => {
   const [isRunning, setIsRunning] = useState(false);
   const [output, setOutput] = useState<string[]>([]);
+  const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
 
-  const mockOutput = [
-    "Initializing project...",
-    "Loading dependencies...",
-    "Setting up environment...",
-    "Processing request...",
-    "Executing main function...",
-    "Generating output...",
-    "Task completed successfully!",
-    "Results saved to output.txt",
-  ];
+  const executeProject = async () => {
+    try {
+      setIsRunning(true);
+      setError(null);
+      setOutput(['Initializing project...']);
 
-  useEffect(() => {
-    if (isRunning) {
-      setOutput([]);
-      let index = 0;
-      const interval = setInterval(() => {
-        if (index < mockOutput.length) {
-          setOutput(prev => [...prev, mockOutput[index]]);
-          index++;
-        } else {
-          setIsRunning(false);
-          clearInterval(interval);
-        }
-      }, 800);
-      return () => clearInterval(interval);
+      const response = await fetch(`${BACKEND_URL}/execute/${project.id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          filename: project.filename,
+          parameters: {}
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.detail || 'Failed to execute project');
+      }
+
+      setOutput(prev => [...prev, 'Execution successful!', JSON.stringify(data.result, null, 2)]);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+      setOutput(prev => [...prev, 'Error: ' + (err instanceof Error ? err.message : 'An error occurred')]);
+    } finally {
+      setIsRunning(false);
     }
-  }, [isRunning]);
+  };
 
   const handleRun = () => {
-    setIsRunning(true);
+    executeProject();
   };
 
   const handleStop = () => {
     setIsRunning(false);
+    setOutput(prev => [...prev, 'Execution stopped by user']);
   };
 
   const handleCopy = () => {
     navigator.clipboard.writeText(output.join('\n'));
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleDownload = () => {
+    const blob = new Blob([output.join('\n')], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${project.id}-output.txt`;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
   };
 
   if (!isOpen) return null;
@@ -88,7 +108,10 @@ const ExecutionModal: React.FC<ExecutionModalProps> = ({ isOpen, onClose, projec
                 {copied ? <Check size={16} /> : <Copy size={16} />}
                 <span>{copied ? 'Copied!' : 'Copy'}</span>
               </button>
-              <button className="flex items-center space-x-2 px-3 py-1.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+              <button 
+                onClick={handleDownload}
+                className="flex items-center space-x-2 px-3 py-1.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+              >
                 <Download size={16} />
                 <span>Download</span>
               </button>
@@ -98,7 +121,12 @@ const ExecutionModal: React.FC<ExecutionModalProps> = ({ isOpen, onClose, projec
           <div className="bg-gray-900 rounded-lg p-4 mb-4 h-64 overflow-y-auto">
             <div className="font-mono text-sm">
               {output.map((line, index) => (
-                <div key={index} className="text-green-400 mb-1">
+                <div 
+                  key={index} 
+                  className={`mb-1 ${
+                    line.startsWith('Error:') ? 'text-red-400' : 'text-green-400'
+                  }`}
+                >
                   <span className="text-gray-500">$ </span>
                   {line}
                 </div>
@@ -114,9 +142,11 @@ const ExecutionModal: React.FC<ExecutionModalProps> = ({ isOpen, onClose, projec
           
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <div className={`w-3 h-3 rounded-full ${isRunning ? 'bg-green-500 animate-pulse' : 'bg-gray-300'}`} />
+              <div className={`w-3 h-3 rounded-full ${
+                error ? 'bg-red-500' : isRunning ? 'bg-green-500 animate-pulse' : 'bg-gray-300'
+              }`} />
               <span className="text-sm text-gray-600">
-                {isRunning ? 'Running...' : 'Ready'}
+                {error ? 'Error' : isRunning ? 'Running...' : 'Ready'}
               </span>
             </div>
             
