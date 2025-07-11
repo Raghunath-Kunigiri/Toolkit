@@ -102,7 +102,7 @@ git push origin main
 ### 3. Configure Project
 - **Project Name:** `tools-collection` (or your preference)
 - **Framework:** Vite (should auto-detect)
-- **Root Directory:** `project/` (if needed)
+- **Root Directory:** `project/` ⚠️ **IMPORTANT: Set this to `project/`**
 - **Build Settings:** Use defaults or verify:
   - Build Command: `npm run build`
   - Output Directory: `dist`
