@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "install": "cd project && npm install",
     "build": "cd project && npm run build",
     "dev": "cd project && npm run dev",
     "preview": "cd project && npm run preview",
