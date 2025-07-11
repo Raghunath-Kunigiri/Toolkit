@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import ProjectCard from './components/ProjectCard';
 import ExecutionModal from './components/ExecutionModal';
+import PDFConverterModal from './components/PDFConverterModal';
 import HeroSection from './components/HeroSection';
 import { projects, getProjectsByCategory, Project } from './data/projects';
 
@@ -10,13 +11,18 @@ function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState('all');
   const [executionModalOpen, setExecutionModalOpen] = useState(false);
+  const [pdfConverterModalOpen, setPdfConverterModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const displayedProjects = getProjectsByCategory(activeCategory);
 
   const handleProjectExecute = (project: Project) => {
-    setSelectedProject(project);
-    setExecutionModalOpen(true);
+    if (project.id === 'pdf-converter') {
+      setPdfConverterModalOpen(true);
+    } else {
+      setSelectedProject(project);
+      setExecutionModalOpen(true);
+    }
   };
 
   const categoryNames: { [key: string]: string } = {
@@ -70,6 +76,11 @@ function App() {
         isOpen={executionModalOpen}
         onClose={() => setExecutionModalOpen(false)}
         project={selectedProject}
+      />
+      
+      <PDFConverterModal
+        isOpen={pdfConverterModalOpen}
+        onClose={() => setPdfConverterModalOpen(false)}
       />
     </div>
   );
