@@ -1,4 +1,26 @@
+# Core dependencies
 requests==2.31.0
 beautifulsoup4==4.12.2
 qrcode==7.4.2
-Pillow==10.1.0 
+Pillow==10.1.0
+
+# Flask Dashboard dependencies
+Flask==2.3.3
+Werkzeug==2.3.7
+Jinja2==3.1.2
+MarkupSafe==2.1.3
+itsdangerous==2.1.2
+click==8.1.7
+blinker==1.6.2
+
+# PDF Converter dependencies
+pdf2image==1.16.3
+python-docx==0.8.11
+fpdf2==3.0.6
+
+# Additional utilities
+fastapi==0.104.1
+uvicorn==0.24.0
+pydantic==2.5.1
+python-multipart==0.0.6
+psutil==5.9.8 

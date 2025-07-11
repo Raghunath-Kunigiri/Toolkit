@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Upload, Download, FileText, Image, FileSpreadsheet, Presentation, RotateCcw, Archive, Lock, Unlock, Scissors, Merge, Settings } from 'lucide-react';
+import { X, Upload, Download, FileText, Image, FileSpreadsheet, Presentation, RotateCcw, Archive, Lock, Unlock, Scissors, Merge } from 'lucide-react';
 
 interface PDFConverterModalProps {
   isOpen: boolean;
@@ -20,7 +20,6 @@ const PDFConverterModal: React.FC<PDFConverterModalProps> = ({ isOpen, onClose }
   const [outputPath, setOutputPath] = useState<string>('');
   const [status, setStatus] = useState<ProcessingStatus>('idle');
   const [statusMessage, setStatusMessage] = useState<string>('');
-  const [conversionSettings, setConversionSettings] = useState<any>({});
   const [convertedFiles, setConvertedFiles] = useState<{ name: string; blob: Blob; url: string }[]>([]);
 
   if (!isOpen) return null;
@@ -213,7 +212,6 @@ Then uncomment the actual PDF.js implementation in the code.`;
     setOutputPath('');
     setStatus('idle');
     setStatusMessage('');
-    setConversionSettings({});
     setConvertedFiles([]);
     // Clean up object URLs
     convertedFiles.forEach(file => URL.revokeObjectURL(file.url));
@@ -454,7 +452,7 @@ Then uncomment the actual PDF.js implementation in the code.`;
                           <FileText className="w-4 h-4 text-green-600" />
                           <span className="text-sm font-medium text-green-800">{fileName}</span>
                           <span className="text-xs text-green-600 bg-green-100 px-2 py-1 rounded">
-                            {getFileSize(fileName)}
+                            {getFileSize()}
                           </span>
                         </div>
                         <button
@@ -665,7 +663,7 @@ Then uncomment the actual PDF.js implementation in the code.`;
     return convertedFiles.map(file => file.name);
   };
 
-  const getFileSize = (fileName: string): string => {
+  const getFileSize = (): string => {
     // Simulate file sizes based on conversion type
     const randomSize = Math.floor(Math.random() * 5000) + 100;
     if (randomSize < 1024) return `${randomSize} KB`;

@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import ProjectCard from './components/ProjectCard';
 import ExecutionModal from './components/ExecutionModal';
 import PDFConverterModal from './components/PDFConverterModal';
 import HeroSection from './components/HeroSection';
-import { projects, getProjectsByCategory, Project } from './data/projects';
+import { getProjectsByCategory, Project } from './data/projects';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
