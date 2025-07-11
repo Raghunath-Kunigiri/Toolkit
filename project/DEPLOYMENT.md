@@ -102,10 +102,10 @@ git push origin main
 ### 3. Configure Project
 - **Project Name:** `tools-collection` (or your preference)
 - **Framework:** Vite (should auto-detect)
-- **Root Directory:** `project/` ⚠️ **IMPORTANT: Set this to `project/`**
-- **Build Settings:** Use defaults or verify:
-  - Build Command: `npm run build`
-  - Output Directory: `dist`
+- **Root Directory:** `.` (leave as default - root level)
+- **Build Settings:** Vercel will use the `vercel.json` configuration:
+  - Build Command: Configured in `vercel.json`
+  - Output Directory: Configured in `vercel.json`
 
 ### 4. Deploy
 1. Click "Deploy"
